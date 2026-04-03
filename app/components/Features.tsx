@@ -1,33 +1,33 @@
 const features = [
   {
-    icon: "🎙️",
-    title: "Menschlich klingende Stimme",
-    desc: "Fortschrittliche Text-to-Speech-Technologie sorgt für natürliche, angenehme Gespräche – Ihre Kunden merken kaum den Unterschied.",
+    icon: "📞",
+    title: "Nimmt jeden Anruf an",
+    desc: "Der KI-Rezeptionist geht sofort ran – ohne Warteschleife, ohne Mailbox. Kein Anruf bleibt unbeantwortet, egal wie viel los ist.",
   },
   {
-    icon: "🧠",
-    title: "Echtes Sprachverständnis",
-    desc: "Der Agent versteht Kontext, Dialekte und komplexe Anfragen dank modernster KI-Modelle.",
+    icon: "📅",
+    title: "Bucht Termine direkt",
+    desc: "Freie Zeiten abfragen, Termin bestätigen, in Ihren Kalender eintragen – vollautomatisch. Kompatibel mit Google Calendar, Calendly, Fresha & Co.",
   },
   {
-    icon: "🔗",
-    title: "Nahtlose Integration",
-    desc: "Verbinden Sie den Voice Agent mit Ihrem CRM, Kalender, Webshop oder anderen Systemen via API.",
+    icon: "🗣️",
+    title: "Klingt wie ein echter Mensch",
+    desc: "Natürliche, flüssige Gespräche auf Deutsch. Kunden merken kaum, dass sie mit einer KI sprechen.",
   },
   {
-    icon: "📊",
-    title: "Live-Dashboard & Analysen",
-    desc: "Verfolgen Sie alle Gespräche, Konversionsraten und häufige Anfragen in Echtzeit.",
+    icon: "💬",
+    title: "Beantwortet Kundenfragen",
+    desc: "Preise, Öffnungszeiten, Wartezeiten, Anfahrt – Ihr Rezeptionist kennt alle Antworten und gibt sie sofort.",
   },
   {
-    icon: "🌍",
-    title: "Mehrsprachig",
-    desc: "Kommunizieren Sie mit Kunden in Deutsch, Englisch, Französisch, Spanisch und vielen weiteren Sprachen.",
+    icon: "🔔",
+    title: "Terminerinnerungen per SMS",
+    desc: "No-Shows kosten Geld. Der Agent schickt automatisch Erinnerungen und senkt Ihre Ausfallrate spürbar.",
   },
   {
     icon: "⚡",
-    title: "Sofort einsatzbereit",
-    desc: "Innerhalb von 48 Stunden ist Ihr individueller Voice Agent live – kein langer Einrichtungsaufwand.",
+    title: "In 48h startklar",
+    desc: "Kein technisches Know-how nötig. Wir richten alles ein – Sie müssen nur Ihre gewohnten Tools weiter nutzen.",
   },
 ];
 
@@ -36,12 +36,12 @@ export default function Features() {
     <section id="features" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <span className="text-[#3b82f6] text-sm font-semibold uppercase tracking-wider">Vorteile</span>
+          <span className="text-[#3b82f6] text-sm font-semibold uppercase tracking-wider">So funktioniert es</span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-4">
-            Alles, was Ihr Business braucht
+            Ihr Rezeptionist der nie krank wird
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Unsere KI-Sprachagenten sind speziell für den deutschen Markt entwickelt und auf Ihre Branche zugeschnitten.
+            Einmal eingerichtet läuft er vollautomatisch – und nimmt Ihnen die lästigen Telefonunterbrechungen ab.
           </p>
         </div>
 

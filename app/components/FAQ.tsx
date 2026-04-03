@@ -4,28 +4,28 @@ import { useState } from "react";
 
 const faqs = [
   {
-    q: "Wie schnell ist der Voice Agent einsatzbereit?",
-    a: "In der Regel ist Ihr individueller Voice Agent innerhalb von 48 Stunden konfiguriert und live. Für Enterprise-Projekte mit tiefer Integration planen wir gemeinsam einen Zeitrahmen.",
+    q: "Kann der KI-Rezeptionist wirklich Termine in meinen Kalender buchen?",
+    a: "Ja – direkt und in Echtzeit. Wir verbinden ihn mit Ihrem bestehenden Kalender (Google Calendar, Calendly, Fresha, Treatwell, etc.). Der Kunde nennt seinen Wunschtermin, die KI prüft die Verfügbarkeit und trägt den Termin sofort ein.",
   },
   {
-    q: "Klingt der Agent wirklich natürlich?",
-    a: "Ja – wir nutzen modernste KI-Stimmsynthese, die menschlicher klingt als je zuvor. Die meisten Anrufer bemerken keinen Unterschied zu einem echten Mitarbeiter.",
+    q: "Klingt das nach einer Maschine? Merken meine Kunden den Unterschied?",
+    a: "Die Stimme klingt natürlich und warm – kein roboterhafter Ton. Die meisten Kunden merken keinen Unterschied. Auf Wunsch können wir dem Rezeptionisten auch einen eigenen Namen geben, z.B. \"Hallo, hier ist Lena von Salon Bella.\"",
   },
   {
-    q: "Kann ich den Agent mit meinem bestehenden System verbinden?",
-    a: "Absolut. Wir bieten Integrationen für CRM-Systeme (HubSpot, Salesforce), Kalender (Google, Outlook), E-Commerce (Shopify, WooCommerce) und mehr per API.",
+    q: "Was passiert, wenn jemand eine komplizierte Frage hat?",
+    a: "Bei Fragen, die die KI nicht beantworten kann, nimmt sie Name und Rückrufnummer auf und informiert Sie per SMS oder E-Mail. So verlieren Sie keinen Anruf – und entscheiden selbst, wann Sie zurückrufen.",
   },
   {
-    q: "Was passiert, wenn der Agent eine Frage nicht beantworten kann?",
-    a: "Der Agent erkennt automatisch, wenn eine Anfrage menschliche Unterstützung erfordert, und leitet das Gespräch nahtlos an einen Mitarbeiter weiter oder nimmt eine Rückrufliste auf.",
+    q: "Wie schnell ist der KI-Rezeptionist eingerichtet?",
+    a: "In der Regel innerhalb von 48 Stunden. Wir lernen Ihr Angebot, Ihre Öffnungszeiten und Ihre Preise kennen – und konfigurieren alles für Sie. Sie müssen nichts Technisches tun.",
   },
   {
-    q: "Ist die Nutzung DSGVO-konform?",
-    a: "Ja. Alle Daten werden ausschließlich auf europäischen Servern verarbeitet. Wir bieten einen AVV und sind vollständig DSGVO-konform.",
+    q: "Ist das DSGVO-konform? Gerade für Arztpraxen wichtig.",
+    a: "Ja. Alle Daten werden auf europäischen Servern verarbeitet. Wir stellen Ihnen einen Auftragsverarbeitungsvertrag (AVV) zur Verfügung. Das Paket \"Praxis / Klinik\" beinhaltet ein erweitertes Datenschutzpaket.",
   },
   {
-    q: "Kann ich kündigen, wenn es mir nicht gefällt?",
-    a: "Selbstverständlich. Alle Pakete sind monatlich kündbar. Außerdem bieten wir 14 Tage kostenlose Testphase ohne Risiko.",
+    q: "Was kostet mich ein verpasster Anruf wirklich?",
+    a: "Ein Friseurtermin bringt im Schnitt 40–80 €. Wenn täglich nur 3 Anrufe unbeantwortet bleiben, sind das über 100–200 € verlorener Umsatz pro Tag. Unser Rezeptionist kostet Sie weniger als 7 € pro Tag – und beantwortet jeden einzelnen Anruf.",
   },
 ];
 

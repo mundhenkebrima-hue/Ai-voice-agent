@@ -2,17 +2,30 @@
 
 import { useState } from "react";
 
+const industries = [
+  "Friseursalon / Barbershop",
+  "Nagelstudio / Beauty Salon",
+  "Arztpraxis / Kinderarzt",
+  "Zahnarztpraxis",
+  "Physiotherapie / Massage",
+  "Hotel / Pension",
+  "Restaurant / Café",
+  "Sonstiges",
+];
+
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
-    company: "",
+    industry: "",
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -27,10 +40,11 @@ export default function Contact() {
         <div className="text-center mb-12">
           <span className="text-[#3b82f6] text-sm font-semibold uppercase tracking-wider">Kontakt</span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-4">
-            Bereit für den nächsten Schritt?
+            Demo vereinbaren – kostenlos
           </h2>
           <p className="text-gray-400">
-            Vereinbaren Sie jetzt eine kostenlose Demo und sehen Sie live, wie Ihr Voice Agent arbeitet.
+            Wir zeigen Ihnen live, wie der KI-Rezeptionist für Ihre Branche klingt und wie er Termine bucht.
+            Keine Verpflichtung.
           </p>
         </div>
 
@@ -39,7 +53,7 @@ export default function Contact() {
             <div className="text-5xl mb-4">✅</div>
             <h3 className="text-xl font-bold mb-2">Vielen Dank!</h3>
             <p className="text-gray-400 text-sm">
-              Wir melden uns innerhalb von 24 Stunden bei Ihnen.
+              Wir melden uns innerhalb von 24 Stunden bei Ihnen für die kostenlose Demo.
             </p>
           </div>
         ) : (
@@ -61,61 +75,68 @@ export default function Contact() {
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-400 mb-1.5">E-Mail *</label>
-                <input
-                  type="email"
-                  name="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="max@unternehmen.de"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#3b82f6]/50 transition-colors"
-                />
-              </div>
-            </div>
-            <div className="grid sm:grid-cols-2 gap-5">
-              <div>
-                <label className="block text-xs text-gray-400 mb-1.5">Telefon</label>
+                <label className="block text-xs text-gray-400 mb-1.5">Telefon *</label>
                 <input
                   type="tel"
                   name="phone"
+                  required
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="+49 123 456789"
                   className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#3b82f6]/50 transition-colors"
                 />
               </div>
-              <div>
-                <label className="block text-xs text-gray-400 mb-1.5">Unternehmen</label>
-                <input
-                  type="text"
-                  name="company"
-                  value={form.company}
-                  onChange={handleChange}
-                  placeholder="Musterfirma GmbH"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#3b82f6]/50 transition-colors"
-                />
-              </div>
             </div>
+
             <div>
-              <label className="block text-xs text-gray-400 mb-1.5">Nachricht</label>
+              <label className="block text-xs text-gray-400 mb-1.5">E-Mail *</label>
+              <input
+                type="email"
+                name="email"
+                required
+                value={form.email}
+                onChange={handleChange}
+                placeholder="max@salon-mustermann.de"
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#3b82f6]/50 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-1.5">Ihre Branche *</label>
+              <select
+                name="industry"
+                required
+                value={form.industry}
+                onChange={handleChange}
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#3b82f6]/50 transition-colors appearance-none"
+              >
+                <option value="" className="bg-[#0d0d14] text-gray-400">Bitte wählen...</option>
+                {industries.map((ind) => (
+                  <option key={ind} value={ind} className="bg-[#0d0d14]">{ind}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-1.5">Wie viele Anrufe bekommen Sie ca. pro Tag?</label>
               <textarea
                 name="message"
                 value={form.message}
                 onChange={handleChange}
-                rows={4}
-                placeholder="Beschreiben Sie kurz Ihren Use Case..."
+                rows={3}
+                placeholder="z.B. ca. 20 Anrufe täglich, viele während der Arbeit..."
                 className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-[#3b82f6]/50 transition-colors resize-none"
               />
             </div>
+
             <button
               type="submit"
               className="w-full bg-[#3b82f6] hover:bg-[#2563eb] text-white font-semibold py-4 rounded-full transition-all hover:shadow-[0_0_30px_rgba(59,130,246,0.4)]"
             >
-              Demo anfragen →
+              Kostenlose Demo anfragen →
             </button>
             <p className="text-center text-gray-600 text-xs">
-              Wir antworten innerhalb von 24 Stunden. Keine Verpflichtungen.
+              Wir rufen Sie zurück. Keine Kosten, keine Verpflichtungen.
             </p>
           </form>
         )}

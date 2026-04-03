@@ -8,19 +8,20 @@ export default function Hero() {
       <div className="relative max-w-4xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 bg-[#3b82f6]/10 border border-[#3b82f6]/20 text-[#60a5fa] text-sm font-medium px-4 py-1.5 rounded-full mb-8">
           <span className="w-1.5 h-1.5 bg-[#3b82f6] rounded-full animate-pulse" />
-          KI-gestützte Sprachagenten – Next Level Automatisierung
+          Ihr KI-Rezeptionist – nimmt jeden Anruf an
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight tracking-tight mb-6">
-          Ihr Unternehmen spricht –{" "}
+          Kein Anruf mehr{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3b82f6] to-[#8b5cf6]">
-            rund um die Uhr
+            verpasst.
           </span>
+          <br />Kein Termin mehr verloren.
         </h1>
 
         <p className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Automatisieren Sie Kundengespräche mit intelligenten KI-Sprachagenten.
-          Kein Warten, keine Warteschlange – nur sofortige, menschlich klingende Antworten.
+          Unser KI-Rezeptionist nimmt Anrufe an, führt echte Gespräche mit Ihren Kunden
+          und bucht Termine direkt in Ihren Kalender – 24 Stunden am Tag, 7 Tage die Woche.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -31,18 +32,18 @@ export default function Hero() {
             Kostenlose Demo buchen
           </a>
           <a
-            href="#features"
+            href="#usecases"
             className="w-full sm:w-auto border border-white/10 hover:border-white/30 text-gray-300 hover:text-white font-semibold px-8 py-4 rounded-full text-base transition-all"
           >
-            Mehr erfahren →
+            Für meine Branche →
           </a>
         </div>
 
         <div className="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
           {[
-            { value: "24/7", label: "Verfügbarkeit" },
-            { value: "< 1s", label: "Antwortzeit" },
-            { value: "95%", label: "Kundenzufriedenheit" },
+            { value: "24/7", label: "Erreichbar" },
+            { value: "< 2s", label: "Antwortzeit" },
+            { value: "0 €", label: "Verpasste Anrufe" },
           ].map((stat) => (
             <div key={stat.label} className="text-center">
               <div className="text-2xl sm:text-3xl font-bold text-[#3b82f6]">{stat.value}</div>

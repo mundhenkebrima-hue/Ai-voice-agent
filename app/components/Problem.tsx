@@ -1,18 +1,18 @@
 const problems = [
   {
-    icon: "😤",
-    title: "Kunden warten ewig",
-    desc: "Lange Warteschleifen frustrieren Kunden und kosten Sie Umsatz.",
+    icon: "✂️",
+    title: "Schere in der Hand, Telefon klingelt",
+    desc: "Mitten im Haarschnitt, beim Behandeln, beim Einchecken – Sie können nicht jedes Mal rangehen. Der Anrufer legt auf und bucht woanders.",
   },
   {
-    icon: "💸",
-    title: "Mitarbeiter ausgelastet",
-    desc: "Ihr Team verliert Stunden mit wiederholenden Standardanfragen.",
+    icon: "📵",
+    title: "Außerhalb der Öffnungszeiten verlieren Sie Kunden",
+    desc: "Die meisten Menschen rufen abends oder am Wochenende an. Wer dann nicht erreichbar ist, verliert diese Kunden an die Konkurrenz.",
   },
   {
-    icon: "🌙",
-    title: "Nicht erreichbar nachts",
-    desc: "Außerhalb der Öffnungszeiten verlieren Sie potenzielle Kunden.",
+    icon: "🔁",
+    title: "Immer wieder dieselben Fragen",
+    desc: "\"Was kostet ein Herrenhaarschnitt?\", \"Haben Sie Montag noch was frei?\", \"Wie lange muss ich warten?\" – Das kostet Sie täglich wertvolle Zeit.",
   },
 ];
 
@@ -22,10 +22,10 @@ export default function Problem() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-            Kennen Sie diese Probleme?
+            Kennen Sie das?
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Traditionelle Kundenkommunikation ist teuer, langsam und nicht skalierbar.
+            Für Friseure, Arztpraxen und Dienstleister ist das Telefon oft mehr Last als Hilfe.
           </p>
         </div>
 
@@ -42,12 +42,11 @@ export default function Problem() {
           ))}
         </div>
 
-        {/* Arrow / Solution intro */}
         <div className="text-center">
           <div className="inline-flex items-center gap-3 bg-gradient-to-r from-[#3b82f6]/10 to-[#8b5cf6]/10 border border-[#3b82f6]/20 rounded-2xl px-8 py-4">
             <span className="text-[#3b82f6] text-2xl">✓</span>
             <p className="text-white font-medium">
-              VoiceAI Pro löst all das – vollautomatisch, ohne Mehraufwand.
+              Ihr KI-Rezeptionist übernimmt jeden Anruf – egal ob 9 Uhr morgens oder 23 Uhr nachts.
             </p>
           </div>
         </div>

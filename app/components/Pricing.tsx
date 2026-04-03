@@ -1,50 +1,55 @@
 const plans = [
   {
     name: "Starter",
-    price: "297",
+    price: "197",
     period: "/ Monat",
-    desc: "Perfekt für kleine Unternehmen, die starten wollen.",
+    desc: "Ideal für Einzelbetriebe wie Friseure oder kleine Studios.",
     features: [
-      "1 Voice Agent",
-      "bis zu 500 Minuten / Monat",
-      "Deutsch & Englisch",
+      "1 KI-Rezeptionist",
+      "bis zu 300 Minuten / Monat",
+      "Terminbuchung inklusive",
+      "Google Calendar Integration",
+      "SMS-Erinnerungen",
       "E-Mail-Support",
-      "Dashboard & Analysen",
     ],
     cta: "Jetzt starten",
     highlight: false,
+    note: null,
   },
   {
     name: "Professional",
-    price: "697",
+    price: "397",
     period: "/ Monat",
-    desc: "Für wachsende Unternehmen mit höherem Gesprächsvolumen.",
+    desc: "Für Praxen, Salons & Hotels mit höherem Anrufvolumen.",
     features: [
-      "3 Voice Agents",
-      "bis zu 2.000 Minuten / Monat",
-      "5 Sprachen inklusive",
-      "CRM-Integration",
+      "1 KI-Rezeptionist",
+      "bis zu 1.000 Minuten / Monat",
+      "Terminbuchung + Stornierung",
+      "Alle Kalender-Integrationen",
+      "SMS & WhatsApp Erinnerungen",
+      "Individuelle Stimme & Name",
       "Priority Support",
-      "Individuelle Stimme",
     ],
     cta: "Demo buchen",
     highlight: true,
+    note: "Meist gewählt",
   },
   {
-    name: "Enterprise",
+    name: "Praxis / Klinik",
     price: "Auf Anfrage",
     period: "",
-    desc: "Maßgeschneiderte Lösung für große Teams und Konzerne.",
+    desc: "Für Arztpraxen, Zahnarztpraxen und größere Betriebe.",
     features: [
-      "Unbegrenzte Agents",
+      "Mehrere Standorte",
       "Unbegrenzte Minuten",
-      "Alle Sprachen",
-      "Vollintegration (CRM, ERP, etc.)",
-      "Dedizierter Account Manager",
-      "SLA-Garantie",
+      "Praxis-Software Integration",
+      "DSGVO-Datenschutzpaket",
+      "Persönlicher Ansprechpartner",
+      "Onboarding & Schulung",
     ],
     cta: "Kontakt aufnehmen",
     highlight: false,
+    note: null,
   },
 ];
 
@@ -55,10 +60,11 @@ export default function Pricing() {
         <div className="text-center mb-16">
           <span className="text-[#3b82f6] text-sm font-semibold uppercase tracking-wider">Preise</span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-4">
-            Transparent & fair
+            Günstiger als ein Azubi
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Keine versteckten Kosten. Jederzeit kündbar. 14 Tage kostenlos testen.
+            Ein Rezeptionist auf Minijob-Basis kostet Sie mindestens 520 € im Monat –
+            und ist nicht 24/7 verfügbar. Unser KI-Rezeptionist schon.
           </p>
         </div>
 
@@ -72,9 +78,9 @@ export default function Pricing() {
                   : "bg-[#0d0d14] border-white/5 hover:border-white/10"
               }`}
             >
-              {plan.highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#3b82f6] text-white text-xs font-bold px-4 py-1.5 rounded-full">
-                  EMPFOHLEN
+              {plan.note && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#3b82f6] text-white text-xs font-bold px-4 py-1.5 rounded-full whitespace-nowrap">
+                  {plan.note.toUpperCase()}
                 </div>
               )}
 
@@ -94,7 +100,7 @@ export default function Pricing() {
               <ul className="space-y-3 mb-8">
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-center gap-2.5 text-sm text-gray-300">
-                    <span className="text-[#3b82f6] text-base">✓</span>
+                    <span className="text-[#3b82f6] text-base flex-shrink-0">✓</span>
                     {f}
                   </li>
                 ))}
@@ -113,6 +119,10 @@ export default function Pricing() {
             </div>
           ))}
         </div>
+
+        <p className="text-center text-gray-600 text-sm mt-8">
+          14 Tage kostenlos testen · Keine Einrichtungsgebühr · Monatlich kündbar
+        </p>
       </div>
     </section>
   );

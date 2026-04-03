@@ -1,20 +1,20 @@
 const testimonials = [
   {
-    name: "Marcus W.",
-    role: "Inhaber, Autohaus München",
-    text: "Seitdem wir den Voice Agent nutzen, entgehen uns keine Anfragen mehr. Selbst nachts werden Termine gebucht. Absolut empfehlenswert!",
+    name: "Amir B.",
+    role: "Inhaber, Barbershop Frankfurt",
+    text: "Ich konnte früher nie ans Telefon, wenn jemand im Stuhl saß. Jetzt bucht die KI die Termine während ich arbeite. Mein Kalender ist voll und ich hab keinen Stress mehr.",
     stars: 5,
   },
   {
-    name: "Sandra K.",
-    role: "Praxismanagerin, Zahnarztpraxis Hamburg",
-    text: "Unsere Rezeption wird massiv entlastet. 70% der Terminanfragen werden jetzt vollautomatisch bearbeitet. Die Patienten sind begeistert.",
+    name: "Dr. med. Julia H.",
+    role: "Kinderärztin, München",
+    text: "Unsere Rezeption war chronisch überlastet. Seit dem KI-Rezeptionisten werden Routineanfragen automatisch bearbeitet. Die Mitarbeiterinnen haben endlich Zeit für die Patienten im Wartezimmer.",
     stars: 5,
   },
   {
-    name: "Thomas R.",
-    role: "E-Commerce Unternehmer",
-    text: "Die Integration mit unserem Shopify-Store war reibungslos. Kunden bekommen sofort Antworten auf Bestellfragen – die Retourenquote ist gesunken.",
+    name: "Melanie S.",
+    role: "Inhaberin, Beauty Studio Hamburg",
+    text: "Samstags war das Telefon nie besetzt – und genau dann rufen die meisten Kunden an. Jetzt werden Buchungen rund um die Uhr angenommen. Umsatz deutlich gestiegen.",
     stars: 5,
   },
 ];
@@ -26,7 +26,7 @@ export default function Testimonials() {
         <div className="text-center mb-16">
           <span className="text-[#3b82f6] text-sm font-semibold uppercase tracking-wider">Kundenstimmen</span>
           <h2 className="text-3xl sm:text-4xl font-bold mt-2 mb-4">
-            Das sagen unsere Kunden
+            Was unsere Kunden sagen
           </h2>
         </div>
 

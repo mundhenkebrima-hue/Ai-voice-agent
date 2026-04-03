@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "VoiceAI Pro – Intelligente Sprachagenten für Ihr Unternehmen",
+  title: "KI-Rezeptionist – Kein Anruf mehr verpasst | Für Friseure, Arztpraxen & mehr",
   description:
-    "Automatisieren Sie Ihre Kundenkommunikation mit KI-gestützten Sprachagenten. 24/7 verfügbar, mehrsprachig und nahtlos integrierbar.",
+    "Ihr KI-Rezeptionist nimmt Anrufe an, führt echte Gespräche und bucht Termine – 24/7. Perfekt für Friseure, Arztpraxen, Beauty Studios und Hotels.",
 };
 
 export default function RootLayout({
