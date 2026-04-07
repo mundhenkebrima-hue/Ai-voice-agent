@@ -8,186 +8,85 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --blue: #3B82F6;
-      --blue-electric: #2563FF;
-      --blue-light: #60A5FA;
-      --gold: #F59E0B;
-      --gold-light: #FBBF24;
-      --bg: #000000;
-      --surface: rgba(255, 255, 255, 0.04);
-      --surface-border: rgba(255, 255, 255, 0.08);
-      --text: #FFFFFF;
-      --text-muted: rgba(255, 255, 255, 0.5);
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
+    html, body {
+      width: 100%; height: 100%;
+      background: #000;
+      color: #fff;
       font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ───────────────────────────────
-       AURORA CANVAS
-    ─────────────────────────────── */
-    #aurora {
+    /* ── CANVAS fills viewport ── */
+    #planet-canvas {
       position: fixed;
       inset: 0;
+      width: 100%;
+      height: 100%;
       z-index: 0;
-      pointer-events: none;
     }
 
-    /* Subtle grain overlay for cinematic feel */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0.035;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 200px;
-    }
-
-    /* ───────────────────────────────
-       NAVIGATION
-    ─────────────────────────────── */
+    /* ── NAV ── */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 0 2.5rem;
-      height: 72px;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(24px) saturate(1.4);
-      -webkit-backdrop-filter: blur(24px) saturate(1.4);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0 2.5rem;
+      background: rgba(0,0,0,0.0);
     }
 
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      text-decoration: none;
-    }
-
-    .nav-logo-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--blue-electric), var(--gold));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 0 24px rgba(37, 99, 255, 0.4);
-    }
-
-    .nav-logo-icon svg {
-      width: 18px;
-      height: 18px;
-      fill: #fff;
-    }
-
-    .nav-logo-text {
-      font-size: 1.05rem;
+    .logo {
+      font-size: 0.95rem;
       font-weight: 700;
-      color: #fff;
-      letter-spacing: -0.02em;
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      letter-spacing: -0.01em;
     }
 
-    .nav-logo-text .accent {
-      background: linear-gradient(90deg, var(--blue-light), var(--gold-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+    .logo span { color: rgba(255,255,255,0.45); font-weight: 400; }
 
     .nav-links {
       display: flex;
-      align-items: center;
-      gap: 2.5rem;
+      gap: 2.25rem;
       list-style: none;
     }
 
     .nav-links a {
-      text-decoration: none;
-      font-size: 0.875rem;
+      font-size: 0.8rem;
       font-weight: 500;
-      color: var(--text-muted);
-      transition: color 0.25s;
-      letter-spacing: -0.01em;
-    }
-
-    .nav-links a:hover { color: #fff; }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .btn-nav-ghost {
-      background: none;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.6);
-      padding: 0.5rem 1.1rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      cursor: pointer;
-      font-family: inherit;
+      color: rgba(255,255,255,0.4);
       text-decoration: none;
-      transition: all 0.25s;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
     }
 
-    .btn-nav-ghost:hover {
-      border-color: rgba(255,255,255,0.25);
-      color: #fff;
-    }
+    .nav-links a:hover { color: rgba(255,255,255,0.85); }
 
-    .btn-nav-primary {
-      background: linear-gradient(135deg, var(--blue-electric), #4F46E5);
-      color: #fff;
-      border: none;
-      padding: 0.5rem 1.25rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
+    .nav-cta {
+      font-size: 0.8rem;
       font-weight: 600;
-      cursor: pointer;
-      font-family: inherit;
+      color: rgba(255,255,255,0.5);
       text-decoration: none;
-      transition: all 0.25s;
-      box-shadow: 0 0 20px rgba(37, 99, 255, 0.3);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.45rem 1.1rem;
+      border-radius: 6px;
+      transition: all 0.2s;
     }
 
-    .btn-nav-primary:hover {
-      box-shadow: 0 0 36px rgba(37, 99, 255, 0.55);
-      transform: translateY(-1px);
-    }
+    .nav-cta:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
 
     .nav-toggle {
       display: none;
       flex-direction: column;
       gap: 5px;
-      cursor: pointer;
       background: none;
       border: none;
+      cursor: pointer;
       padding: 4px;
     }
 
@@ -195,13 +94,11 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: #fff;
+      background: rgba(255,255,255,0.6);
       border-radius: 2px;
     }
 
-    /* ───────────────────────────────
-       HERO SECTION
-    ─────────────────────────────── */
+    /* ── HERO CONTENT ── */
     .hero {
       position: relative;
       z-index: 2;
@@ -211,408 +108,357 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 1.5rem 5rem;
+      padding: 80px 1.5rem 0;
+      /* Push content up so it sits above the planet horizon */
+      padding-bottom: 30vh;
     }
 
-    /* Micro-badge */
-    .hero-badge {
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 1.2s ease 0.3s both;
+    }
+
+    .hero-headline {
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      color: #fff;
+      margin-bottom: 1.25rem;
+      animation: fadeUp 1.2s ease 0.5s both;
+    }
+
+    /* Subtle text shadow so headline pops above the planet glow */
+    .hero-headline {
+      text-shadow:
+        0 0 80px rgba(0,0,0,0.9),
+        0 2px 40px rgba(0,0,0,0.8);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.45);
+      font-weight: 400;
+      line-height: 1.65;
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      animation: fadeUp 1.2s ease 0.7s both;
+      text-shadow: 0 0 40px rgba(0,0,0,0.8);
+    }
+
+    /* ── BUTTONS ── */
+    .cta-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: fadeUp 1.2s ease 0.9s both;
+    }
+
+    .btn-primary {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.4rem 1.1rem;
-      border-radius: 100px;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      background: rgba(245, 158, 11, 0.08);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
-      animation: fadeInUp 1s ease 0.2s both;
-    }
-
-    .hero-badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--gold-light);
-      box-shadow: 0 0 10px var(--gold-light);
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.75); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* HEADLINE – BIG & BOLD */
-    .hero-headline {
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 900;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      max-width: 900px;
-      color: #fff;
-      margin-bottom: 1.75rem;
-      animation: fadeInUp 1s ease 0.4s both;
-    }
-
-    .hero-headline .gradient-text {
-      background: linear-gradient(135deg, var(--blue-light) 0%, var(--gold-light) 50%, var(--blue-light) 100%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 4s ease-in-out infinite;
-    }
-
-    @keyframes shimmer {
-      0%, 100% { background-position: 0% center; }
-      50%      { background-position: 200% center; }
-    }
-
-    /* Subtext */
-    .hero-subtext {
-      font-size: clamp(1.05rem, 2.5vw, 1.35rem);
-      color: rgba(255,255,255,0.5);
-      font-weight: 400;
-      line-height: 1.65;
-      max-width: 620px;
-      margin-bottom: 3rem;
-      animation: fadeInUp 1s ease 0.6s both;
-    }
-
-    /* CTA */
-    .hero-cta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      animation: fadeInUp 1s ease 0.8s both;
-    }
-
-    .btn-cta {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 1rem 2.4rem;
+      background: #fff;
+      color: #000;
       border: none;
-      border-radius: 12px;
-      font-size: 1.05rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
       font-weight: 700;
       font-family: inherit;
       cursor: pointer;
       text-decoration: none;
-      color: #fff;
-      background: linear-gradient(135deg, var(--blue-electric), #4F46E5);
-      transition: all 0.3s ease;
-      box-shadow:
-        0 0 40px rgba(37, 99, 255, 0.4),
-        0 8px 32px rgba(0,0,0,0.5);
-      overflow: hidden;
+      transition: all 0.25s;
+      box-shadow: 0 0 40px rgba(255,255,255,0.15);
     }
 
-    .btn-cta::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 13px;
-      background: linear-gradient(135deg, var(--blue-light), var(--gold), var(--blue-electric));
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.3s;
+    .btn-primary:hover {
+      background: rgba(255,255,255,0.88);
+      transform: translateY(-1px);
+      box-shadow: 0 0 60px rgba(255,255,255,0.25);
     }
 
-    .btn-cta:hover::before { opacity: 1; }
-
-    .btn-cta:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 60px rgba(37, 99, 255, 0.55),
-        0 12px 40px rgba(0,0,0,0.5);
-    }
-
-    .btn-cta svg {
-      width: 20px;
-      height: 20px;
-      transition: transform 0.3s;
-    }
-
-    .btn-cta:hover svg { transform: translateX(3px); }
-
-    .btn-secondary {
+    .btn-ghost {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 1rem 1.8rem;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.55);
       border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
       font-weight: 500;
       font-family: inherit;
       cursor: pointer;
       text-decoration: none;
-      color: rgba(255,255,255,0.6);
-      background: rgba(255,255,255,0.03);
-      backdrop-filter: blur(10px);
-      transition: all 0.3s;
+      backdrop-filter: blur(8px);
+      transition: all 0.25s;
     }
 
-    .btn-secondary:hover {
-      border-color: rgba(255,255,255,0.25);
+    .btn-ghost:hover {
       color: #fff;
-      background: rgba(255,255,255,0.06);
-    }
-
-    /* Trust line */
-    .hero-trust {
-      margin-top: 4rem;
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      animation: fadeInUp 1s ease 1s both;
-    }
-
-    .trust-divider {
-      width: 1px;
-      height: 36px;
+      border-color: rgba(255,255,255,0.25);
       background: rgba(255,255,255,0.1);
     }
 
-    .trust-stat {
-      text-align: center;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .trust-stat-value {
-      font-size: 1.5rem;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .trust-stat-value .blue  { color: var(--blue-light); }
-    .trust-stat-value .gold  { color: var(--gold-light); }
-
-    .trust-stat-label {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.35);
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 0.2rem;
-    }
-
-    /* ───────────────────────────────
-       RESPONSIVE
-    ─────────────────────────────── */
-    @media (max-width: 768px) {
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
       nav { padding: 0 1.25rem; }
-      .nav-links, .nav-actions .btn-nav-ghost { display: none; }
+      .nav-links, .nav-cta { display: none; }
       .nav-toggle { display: flex; }
 
-      .hero-trust {
-        flex-direction: column;
-        gap: 1.25rem;
-      }
+      .hero { padding-bottom: 35vh; }
 
-      .trust-divider {
-        width: 48px;
-        height: 1px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-cta {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .btn-cta, .btn-secondary {
-        width: 100%;
-        justify-content: center;
-      }
+      .cta-group { flex-direction: column; width: 100%; }
+      .btn-primary, .btn-ghost { width: 100%; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Aurora Background Canvas -->
-  <canvas id="aurora"></canvas>
+  <!-- Planet canvas -->
+  <canvas id="planet-canvas"></canvas>
 
-  <!-- ── NAVIGATION ── -->
+  <!-- Nav -->
   <nav>
-    <a href="#" class="nav-logo">
-      <div class="nav-logo-icon">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 3a1 1 0 0 1 1 1v16a1 1 0 0 1-2 0V4a1 1 0 0 1 1-1zM7 7a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V8a1 1 0 0 1 1-1zm10 0a1 1 0 0 1 1 1v8a1 1 0 0 1-2 0V8a1 1 0 0 1 1-1zM4 10a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zm16 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1z"/>
-        </svg>
-      </div>
-      <span class="nav-logo-text">AI <span class="accent">Business</span> Solutions</span>
-    </a>
-
+    <a href="#" class="logo">AI <span>Business</span> Solutions</a>
     <ul class="nav-links">
-      <li><a href="#funktionen">Funktionen</a></li>
-      <li><a href="#so-funktionierts">So funktionierts</a></li>
-      <li><a href="#preise">Preise</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#">Funktionen</a></li>
+      <li><a href="#">So funktionierts</a></li>
+      <li><a href="#">Preise</a></li>
+      <li><a href="#">FAQ</a></li>
     </ul>
-
-    <div class="nav-actions">
-      <a href="#" class="btn-nav-ghost">Anmelden</a>
-      <a href="#demo" class="btn-nav-primary">Demo anfragen</a>
-    </div>
-
-    <button class="nav-toggle" aria-label="Menü öffnen">
+    <a href="#demo" class="nav-cta">Demo anfragen</a>
+    <button class="nav-toggle" aria-label="Menü">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
-  <!-- ── HERO SECTION ── -->
-  <section class="hero" id="hero">
-
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      Für Handwerker & Dienstleister
-    </div>
-
+  <!-- Hero -->
+  <section class="hero">
+    <p class="hero-eyebrow">KI-Telefonie für Handwerker &amp; Dienstleister</p>
     <h1 class="hero-headline">
-      Dein <span class="gradient-text">KI-Rezeptionist</span> –<br />
-      24/7 erreichbar, nie krank,<br />
-      nie beschäftigt.
+      Dein KI-Rezeptionist –<br />
+      24/7 erreichbar,<br />
+      nie krank, nie beschäftigt.
     </h1>
-
-    <p class="hero-subtext">
+    <p class="hero-sub">
       Automatische Anrufannahme für Handwerker und Dienstleister –<br />
       kein verpasster Auftrag mehr.
     </p>
-
-    <div class="hero-cta">
-      <a href="#demo" class="btn-cta" id="demo">
+    <div class="cta-group">
+      <a href="#demo" class="btn-primary" id="demo">
         Jetzt Demo anfragen
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
       </a>
-      <a href="#so-funktionierts" class="btn-secondary">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <a href="#" class="btn-ghost">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="10"/>
           <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
         </svg>
-        So funktionierts
+        Wie es funktioniert
       </a>
     </div>
-
-    <div class="hero-trust">
-      <div class="trust-stat">
-        <div class="trust-stat-value"><span class="blue">24/7</span></div>
-        <div class="trust-stat-label">Erreichbar</div>
-      </div>
-      <div class="trust-divider"></div>
-      <div class="trust-stat">
-        <div class="trust-stat-value"><span class="gold">&lt;2s</span></div>
-        <div class="trust-stat-label">Antwortzeit</div>
-      </div>
-      <div class="trust-divider"></div>
-      <div class="trust-stat">
-        <div class="trust-stat-value"><span class="blue">98%</span></div>
-        <div class="trust-stat-label">Zufriedenheit</div>
-      </div>
-    </div>
-
   </section>
 
-  <!-- ── AURORA ANIMATION (Canvas) ── -->
   <script>
   (function () {
-    const canvas = document.getElementById('aurora');
-    const ctx = canvas.getContext('2d');
-    let w, h, dpr;
+    const canvas = document.getElementById('planet-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, dpr, cx, cy, R;
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = canvas.width  = window.innerWidth  * dpr;
-      h = canvas.height = window.innerHeight * dpr;
-      canvas.style.width  = window.innerWidth  + 'px';
-      canvas.style.height = window.innerHeight + 'px';
+      W   = window.innerWidth;
+      H   = window.innerHeight;
+      canvas.width  = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width  = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr);
+
+      // Planet radius: 70% of viewport width, min 380px
+      R  = Math.max(W * 0.70, 380);
+      // Center X = viewport center
+      cx = W / 2;
+      // Center Y = place planet so its top arc sits at ~62% of viewport height
+      // => cy = 0.62*H + R  (so top of circle is at 0.62*H)
+      cy = H * 0.62 + R;
     }
 
-    window.addEventListener('resize', resize);
+    window.addEventListener('resize', () => { resize(); draw(lastT); });
     resize();
 
-    /* ── Orb class ── */
-    class Orb {
-      constructor(color, radius, speed, xOff, yOff) {
-        this.color  = color;
-        this.radius = radius;
-        this.speed  = speed;
-        this.xOff   = xOff;
-        this.yOff   = yOff;
-        this.angle  = Math.random() * Math.PI * 2;
-        this.drift  = Math.random() * Math.PI * 2;
-      }
+    /* ────────────────────────────────
+       DRAW
+    ──────────────────────────────── */
+    let lastT = 0;
 
-      update(t) {
-        this.angle += this.speed;
-        this.drift += this.speed * 0.7;
-        this.x = w * 0.5 + Math.cos(this.angle) * w * this.xOff + Math.sin(this.drift * 0.5) * w * 0.04;
-        this.y = h * 0.45 + Math.sin(this.drift) * h * this.yOff;
-        // Pulse radius
-        this.r = this.radius * w * (0.9 + 0.1 * Math.sin(t * 0.0008 + this.angle));
-      }
+    function draw(t) {
+      lastT = t;
+      ctx.clearRect(0, 0, W, H);
 
-      draw() {
-        const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
-        grad.addColorStop(0,   this.color);
-        grad.addColorStop(0.4, this.color.replace(/[\d.]+\)$/, '0.12)'));
-        grad.addColorStop(1,   'rgba(0,0,0,0)');
-        ctx.fillStyle = grad;
+      // ── 1. Deep space background: pure black, maybe faint star dust
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, W, H);
+
+      // Optional: subtle star field
+      drawStars();
+
+      // ── 2. Planet body (dark sphere)
+      drawPlanetBody();
+
+      // ── 3. Rim / halo light layers (the cinematic rainbow arc)
+      drawRim(t);
+
+      // ── 4. Very faint atmosphere glow bleeding onto the black background
+      drawAtmosphereBleed();
+    }
+
+    /* ── Stars ── */
+    const stars = Array.from({ length: 200 }, () => ({
+      x: Math.random(),
+      y: Math.random() * 0.6, // only in upper portion
+      r: Math.random() * 1.2 + 0.3,
+      a: Math.random() * 0.6 + 0.15,
+    }));
+
+    function drawStars() {
+      for (const s of stars) {
         ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${s.a})`;
         ctx.fill();
       }
     }
 
-    /* Create orbs – electric blue & warm gold nebula */
-    const orbs = [
-      // Large blue core
-      new Orb('rgba(37,99,255,0.25)',  0.28, 0.003,  0.00,  0.06),
-      // Gold accent
-      new Orb('rgba(245,158,11,0.14)', 0.22, 0.004,  0.08, -0.05),
-      // Smaller electric blue
-      new Orb('rgba(96,165,250,0.18)', 0.18, 0.005, -0.06,  0.04),
-      // Deep purple / indigo bridge
-      new Orb('rgba(99,102,241,0.16)', 0.20, 0.0035, 0.04,  0.07),
-      // Warm gold – secondary
-      new Orb('rgba(251,191,36,0.10)', 0.15, 0.006, -0.09, -0.03),
-      // Faint cyan highlight
-      new Orb('rgba(34,211,238,0.08)', 0.14, 0.0045, 0.07, -0.06),
-    ];
+    /* ── Planet dark body ── */
+    function drawPlanetBody() {
+      // Main sphere: near-black with very subtle deep blue center
+      const bodyGrad = ctx.createRadialGradient(
+        cx, cy - R * 0.1, R * 0.05,  // inner highlight slightly above center
+        cx, cy,            R
+      );
+      bodyGrad.addColorStop(0,   'rgba(12, 14, 22, 1)');
+      bodyGrad.addColorStop(0.5, 'rgba(5, 6, 12, 1)');
+      bodyGrad.addColorStop(1,   'rgba(0, 0, 0, 1)');
 
-    /* ── Render loop ── */
-    function frame(t) {
-      ctx.clearRect(0, 0, w, h);
-
-      // Global composite for additive blending (brighter where orbs overlap)
-      ctx.globalCompositeOperation = 'lighter';
-
-      for (const orb of orbs) {
-        orb.update(t);
-        orb.draw();
-      }
-
-      ctx.globalCompositeOperation = 'source-over';
-      requestAnimationFrame(frame);
+      ctx.beginPath();
+      ctx.arc(cx, cy, R, 0, Math.PI * 2);
+      ctx.fillStyle = bodyGrad;
+      ctx.fill();
     }
 
-    requestAnimationFrame(frame);
+    /* ── Rainbow rim light ── */
+    function drawRim(t) {
+      const pulse = 0.92 + 0.08 * Math.sin(t * 0.0006);
+
+      // We draw the rim as multiple concentric arcs/glows around the planet edge
+      // The rim arc spans from ~150° to 30° (top of planet), i.e. the lit hemisphere top
+
+      // Layer stack (back to front, additive blending):
+      const layers = [
+        // [color, lineWidth multiplier, globalAlpha, blur]
+        { color: 'rgba(120, 60, 220, 0.35)',  w: 38, blur: 28 },  // outer violet
+        { color: 'rgba(30,  80, 255, 0.45)',  w: 28, blur: 20 },  // blue
+        { color: 'rgba(0,  180, 255, 0.50)',  w: 20, blur: 14 },  // cyan
+        { color: 'rgba(80,  220, 180, 0.40)', w: 14, blur: 10 },  // teal
+        { color: 'rgba(255, 200,  60, 0.55)', w: 10, blur: 8  },  // gold
+        { color: 'rgba(255, 130,  20, 0.50)', w:  8, blur: 6  },  // orange
+        { color: 'rgba(255, 255, 200, 0.70)', w:  5, blur: 4  },  // warm white core
+        { color: 'rgba(255, 255, 255, 0.95)', w:  2, blur: 1  },  // pure white edge
+      ];
+
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+
+      for (const l of layers) {
+        ctx.save();
+        ctx.filter = `blur(${l.blur * pulse}px)`;
+        ctx.beginPath();
+        // Arc: just the top half-ish of the planet (210° to 330° = top arc)
+        // In canvas: 0 = right, PI = left, top = -PI/2
+        // We want the top arc: from ~200° to ~340° (degrees from 3-o'clock)
+        const startAngle = (200 * Math.PI) / 180;
+        const endAngle   = (340 * Math.PI) / 180;
+        ctx.arc(cx, cy, R, startAngle, endAngle);
+        ctx.strokeStyle = l.color;
+        ctx.lineWidth   = l.w * pulse;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      // Extra: a very wide soft bloom at the very top of the planet
+      ctx.save();
+      ctx.filter = 'blur(60px)';
+      const bloomGrad = ctx.createRadialGradient(cx, cy - R, 0, cx, cy - R, R * 0.55);
+      bloomGrad.addColorStop(0,   'rgba(220, 180, 80, 0.35)');
+      bloomGrad.addColorStop(0.3, 'rgba(60, 120, 255, 0.25)');
+      bloomGrad.addColorStop(0.7, 'rgba(100, 40, 200, 0.12)');
+      bloomGrad.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = bloomGrad;
+      ctx.beginPath();
+      ctx.arc(cx, cy - R, R * 0.55, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+
+      ctx.restore();
+
+      // Re-clip: paint the planet body OVER the rim blur that bled inward
+      // so the surface stays dark (only the edge glows)
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      const clip = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.98);
+      clip.addColorStop(0,    'rgba(6, 8, 16, 1)');
+      clip.addColorStop(0.75, 'rgba(3, 4, 8, 1)');
+      clip.addColorStop(0.93, 'rgba(0, 0, 0, 0.85)');
+      clip.addColorStop(1,    'rgba(0, 0, 0, 0)');
+      ctx.beginPath();
+      ctx.arc(cx, cy, R * 0.98, 0, Math.PI * 2);
+      ctx.fillStyle = clip;
+      ctx.fill();
+      ctx.restore();
+    }
+
+    /* ── Atmosphere bleed (glow that escapes into space above planet) ── */
+    function drawAtmosphereBleed() {
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+
+      // Wide soft halo above the horizon
+      const halo = ctx.createRadialGradient(cx, cy - R * 0.98, 0, cx, cy - R * 0.98, R * 0.8);
+      halo.addColorStop(0,   'rgba(40, 100, 255, 0.10)');
+      halo.addColorStop(0.4, 'rgba(20,  60, 180, 0.05)');
+      halo.addColorStop(1,   'rgba(0,   0,   0,  0)');
+
+      ctx.beginPath();
+      ctx.arc(cx, cy - R * 0.98, R * 0.8, 0, Math.PI * 2);
+      ctx.fillStyle = halo;
+      ctx.fill();
+
+      ctx.restore();
+    }
+
+    /* ── Animation loop ── */
+    function loop(t) {
+      draw(t);
+      requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
   })();
   </script>
 
