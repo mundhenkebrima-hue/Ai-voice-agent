@@ -7,6 +7,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Spline viewer web component (vanilla, no bundler needed) -->
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.10.8/build/spline-viewer.js"></script>
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -18,14 +21,17 @@
       overflow-x: hidden;
     }
 
-    /* ── CANVAS fills viewport ── */
-    #planet-canvas {
+    /* ── SPLINE fills viewport as background ── */
+    spline-viewer {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
     }
+
+    /* Hide Spline watermark */
+    spline-viewer::part(logo) { display: none !important; }
 
     /* ── NAV ── */
     nav {
@@ -227,8 +233,11 @@
 </head>
 <body>
 
-  <!-- Planet canvas -->
-  <canvas id="planet-canvas"></canvas>
+  <!-- Spline 3D Background -->
+  <spline-viewer
+    url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+    loading-anim-type="none"
+  ></spline-viewer>
 
   <!-- Nav -->
   <nav>
@@ -274,193 +283,6 @@
     </div>
   </section>
 
-  <script>
-  (function () {
-    const canvas = document.getElementById('planet-canvas');
-    const ctx    = canvas.getContext('2d');
-    let W, H, dpr, cx, cy, R;
-
-    function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W   = window.innerWidth;
-      H   = window.innerHeight;
-      canvas.width  = W * dpr;
-      canvas.height = H * dpr;
-      canvas.style.width  = W + 'px';
-      canvas.style.height = H + 'px';
-      ctx.scale(dpr, dpr);
-
-      // Planet radius: 70% of viewport width, min 380px
-      R  = Math.max(W * 0.70, 380);
-      // Center X = viewport center
-      cx = W / 2;
-      // Center Y = place planet so its top arc sits at ~62% of viewport height
-      // => cy = 0.62*H + R  (so top of circle is at 0.62*H)
-      cy = H * 0.62 + R;
-    }
-
-    window.addEventListener('resize', () => { resize(); draw(lastT); });
-    resize();
-
-    /* ────────────────────────────────
-       DRAW
-    ──────────────────────────────── */
-    let lastT = 0;
-
-    function draw(t) {
-      lastT = t;
-      ctx.clearRect(0, 0, W, H);
-
-      // ── 1. Deep space background: pure black, maybe faint star dust
-      ctx.fillStyle = '#000';
-      ctx.fillRect(0, 0, W, H);
-
-      // Optional: subtle star field
-      drawStars();
-
-      // ── 2. Planet body (dark sphere)
-      drawPlanetBody();
-
-      // ── 3. Rim / halo light layers (the cinematic rainbow arc)
-      drawRim(t);
-
-      // ── 4. Very faint atmosphere glow bleeding onto the black background
-      drawAtmosphereBleed();
-    }
-
-    /* ── Stars ── */
-    const stars = Array.from({ length: 200 }, () => ({
-      x: Math.random(),
-      y: Math.random() * 0.6, // only in upper portion
-      r: Math.random() * 1.2 + 0.3,
-      a: Math.random() * 0.6 + 0.15,
-    }));
-
-    function drawStars() {
-      for (const s of stars) {
-        ctx.beginPath();
-        ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${s.a})`;
-        ctx.fill();
-      }
-    }
-
-    /* ── Planet dark body ── */
-    function drawPlanetBody() {
-      // Main sphere: near-black with very subtle deep blue center
-      const bodyGrad = ctx.createRadialGradient(
-        cx, cy - R * 0.1, R * 0.05,  // inner highlight slightly above center
-        cx, cy,            R
-      );
-      bodyGrad.addColorStop(0,   'rgba(12, 14, 22, 1)');
-      bodyGrad.addColorStop(0.5, 'rgba(5, 6, 12, 1)');
-      bodyGrad.addColorStop(1,   'rgba(0, 0, 0, 1)');
-
-      ctx.beginPath();
-      ctx.arc(cx, cy, R, 0, Math.PI * 2);
-      ctx.fillStyle = bodyGrad;
-      ctx.fill();
-    }
-
-    /* ── Rainbow rim light ── */
-    function drawRim(t) {
-      const pulse = 0.92 + 0.08 * Math.sin(t * 0.0006);
-
-      // We draw the rim as multiple concentric arcs/glows around the planet edge
-      // The rim arc spans from ~150° to 30° (top of planet), i.e. the lit hemisphere top
-
-      // Layer stack (back to front, additive blending):
-      const layers = [
-        // [color, lineWidth multiplier, globalAlpha, blur]
-        { color: 'rgba(120, 60, 220, 0.35)',  w: 38, blur: 28 },  // outer violet
-        { color: 'rgba(30,  80, 255, 0.45)',  w: 28, blur: 20 },  // blue
-        { color: 'rgba(0,  180, 255, 0.50)',  w: 20, blur: 14 },  // cyan
-        { color: 'rgba(80,  220, 180, 0.40)', w: 14, blur: 10 },  // teal
-        { color: 'rgba(255, 200,  60, 0.55)', w: 10, blur: 8  },  // gold
-        { color: 'rgba(255, 130,  20, 0.50)', w:  8, blur: 6  },  // orange
-        { color: 'rgba(255, 255, 200, 0.70)', w:  5, blur: 4  },  // warm white core
-        { color: 'rgba(255, 255, 255, 0.95)', w:  2, blur: 1  },  // pure white edge
-      ];
-
-      ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
-
-      for (const l of layers) {
-        ctx.save();
-        ctx.filter = `blur(${l.blur * pulse}px)`;
-        ctx.beginPath();
-        // Arc: just the top half-ish of the planet (210° to 330° = top arc)
-        // In canvas: 0 = right, PI = left, top = -PI/2
-        // We want the top arc: from ~200° to ~340° (degrees from 3-o'clock)
-        const startAngle = (200 * Math.PI) / 180;
-        const endAngle   = (340 * Math.PI) / 180;
-        ctx.arc(cx, cy, R, startAngle, endAngle);
-        ctx.strokeStyle = l.color;
-        ctx.lineWidth   = l.w * pulse;
-        ctx.stroke();
-        ctx.restore();
-      }
-
-      // Extra: a very wide soft bloom at the very top of the planet
-      ctx.save();
-      ctx.filter = 'blur(60px)';
-      const bloomGrad = ctx.createRadialGradient(cx, cy - R, 0, cx, cy - R, R * 0.55);
-      bloomGrad.addColorStop(0,   'rgba(220, 180, 80, 0.35)');
-      bloomGrad.addColorStop(0.3, 'rgba(60, 120, 255, 0.25)');
-      bloomGrad.addColorStop(0.7, 'rgba(100, 40, 200, 0.12)');
-      bloomGrad.addColorStop(1,   'rgba(0,0,0,0)');
-      ctx.fillStyle = bloomGrad;
-      ctx.beginPath();
-      ctx.arc(cx, cy - R, R * 0.55, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-
-      ctx.restore();
-
-      // Re-clip: paint the planet body OVER the rim blur that bled inward
-      // so the surface stays dark (only the edge glows)
-      ctx.save();
-      ctx.globalCompositeOperation = 'source-over';
-      const clip = ctx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.98);
-      clip.addColorStop(0,    'rgba(6, 8, 16, 1)');
-      clip.addColorStop(0.75, 'rgba(3, 4, 8, 1)');
-      clip.addColorStop(0.93, 'rgba(0, 0, 0, 0.85)');
-      clip.addColorStop(1,    'rgba(0, 0, 0, 0)');
-      ctx.beginPath();
-      ctx.arc(cx, cy, R * 0.98, 0, Math.PI * 2);
-      ctx.fillStyle = clip;
-      ctx.fill();
-      ctx.restore();
-    }
-
-    /* ── Atmosphere bleed (glow that escapes into space above planet) ── */
-    function drawAtmosphereBleed() {
-      ctx.save();
-      ctx.globalCompositeOperation = 'lighter';
-
-      // Wide soft halo above the horizon
-      const halo = ctx.createRadialGradient(cx, cy - R * 0.98, 0, cx, cy - R * 0.98, R * 0.8);
-      halo.addColorStop(0,   'rgba(40, 100, 255, 0.10)');
-      halo.addColorStop(0.4, 'rgba(20,  60, 180, 0.05)');
-      halo.addColorStop(1,   'rgba(0,   0,   0,  0)');
-
-      ctx.beginPath();
-      ctx.arc(cx, cy - R * 0.98, R * 0.8, 0, Math.PI * 2);
-      ctx.fillStyle = halo;
-      ctx.fill();
-
-      ctx.restore();
-    }
-
-    /* ── Animation loop ── */
-    function loop(t) {
-      draw(t);
-      requestAnimationFrame(loop);
-    }
-
-    requestAnimationFrame(loop);
-  })();
-  </script>
 
 </body>
 </html>
